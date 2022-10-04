@@ -51,12 +51,13 @@ INSTALLED_APPS = [
     'trade.apps.TradeConfig',
     'user_operation.apps.UserOperationConfig',
 
-    'crispy_forms',
-    'django_filters',
-    'xadmin',
-    'rest_framework',
-    'corsheaders',
-    'rest_framework.authtoken'
+    # xadmin discord
+    # 'crispy_forms',
+    # 'django_filters',
+    # 'xadmin',
+    # 'rest_framework',
+    # 'corsheaders',
+    # 'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
