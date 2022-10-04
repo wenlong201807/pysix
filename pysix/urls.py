@@ -19,6 +19,14 @@ from django.conf.urls import defaults
 from django.urls import include, re_path
 import xadmin
 
+from pysix.settings import MEDIA_ROOT
+from django.views.static import serve
+
 urlpatterns = [
-       # re_path('xadmin/', xadmin.site.urls),
+    # re_path('xadmin/', xadmin.site.urls),
+
+    # 图片访问路径 没有成功
+    # testUrl: http://127.0.0.1:8000/media/banner/banner1.jpg
+    # testUrl: http://127.0.0.1:8000/media/goods/images/2_20170719161405_249.jpg
+    re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 ]
