@@ -133,14 +133,14 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
-
+TIME_ZONE = 'Asis/Shanghai'
 USE_I18N = True
+USE_L10N = True
+USE_TZ = False # 默认是true， 时间是UTC，不是我们想要的，所以修改为felse
 
-USE_TZ = True
-
+CORS_ORIGIN_ALLOW_ALL = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
