@@ -181,3 +181,6 @@ linux 下安装虚拟环境
 # 进入此虚拟环境 cd py2
 # 启动虚拟环境 source bin/activate
 
+
+[原始项目源码](https://github.com/liyaopinner/MxShop)
+
