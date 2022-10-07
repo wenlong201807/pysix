@@ -149,13 +149,13 @@ CORS_ORIGIN_ALLOW_ALL = True
 # 图片文件资源访问路径
 STATIC_URL = '/static/'
 MEDIA_URL = "/media/"
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, "static"),
-# )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-
+# 未生效
+# REST_FRAMEWORK = {
+#     'PAGE_SIZE': 10,
+# }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

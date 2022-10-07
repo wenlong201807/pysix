@@ -24,7 +24,8 @@ from pysix.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 
-from goods.views_base import GoodsListView
+from goods.views import GoodsListView
+# from goods.views_base import GoodsListView
 
 urlpatterns = [
     # re_path('xadmin/', xadmin.site.urls),
