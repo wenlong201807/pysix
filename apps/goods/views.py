@@ -18,21 +18,15 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     商品列表页
     """
-    queryset = Goods.objects.all()
+    # queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     pagination_class = GoodsPagination  # 自定义分页参数
 
-"""
-view 的继承关系 查看源码 generics.py -> from rest_framework import generics
-GenericViewSet(viewSet)   -drf
-    GenericAPIView        -drf    
-        APIView           -drf  过滤功能，序列化，分页
-            View          -django
-            
-mixin  查看源码 mixins.py -> from rest_framework import mixins
-   CreateModelMixin
-   ListModelMixin  分页功能
-   UpdateModelMixin 部分更新还是全部更新
-   RetrieveModelMixin
-   DestroyModelMixin 删除操作，并返回指定的状态码
-"""
+    #  处理前端传递的参数
+    def get_queryset(self):
+        queryset = Goods.objects.all()
+        # 初级版过滤查询: 查询前端传过来的参数字段price_min 值大于指定数值int(price_min) 的的数据列表
+        price_min = self.request.query_params.get('price_min', 0)
+        if price_min:
+            queryset = queryset.filter(shop_price__gt=int(price_min))
+        return queryset

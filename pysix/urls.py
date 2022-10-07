@@ -32,7 +32,7 @@ router = DefaultRouter()
 #  配置goods的url
 
 # 测试访问 http://127.0.0.1:8000/goods/
-router.register(r'goods', GoodsListViewSet)  # 后续只需要添加一行这个路由即可
+router.register(r'goods', GoodsListViewSet, basename='goods')  # 后续只需要添加一行这个路由即可
 
 urlpatterns = [
     # re_path('xadmin/', xadmin.site.urls),
