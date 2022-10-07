@@ -26,16 +26,13 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from goods.views import GoodsListViewSet
 
-# 初级版
-# goods_list = GoodsListViewSet.as_view({
-#     'get': 'list',  # get请求绑定到list上
-# })
-
 # 高级版
 router = DefaultRouter()
 
 #  配置goods的url
-router.register(r'goods', GoodsListViewSet)
+
+# 测试访问 http://127.0.0.1:8000/goods/
+router.register(r'goods', GoodsListViewSet)  # 后续只需要添加一行这个路由即可
 
 urlpatterns = [
     # re_path('xadmin/', xadmin.site.urls),
@@ -46,10 +43,9 @@ urlpatterns = [
     # 成功 testUrl: http://127.0.0.1:8000/media/goods/images/2_20170719161405_249.jpg
     re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
-    # 测试访问 http://127.0.0.1:8000/goods/
-    # re_path(r'goods/$', goods_list, name="goods-list"), # 初级版
+    # 添加router统一注册
+    re_path(r'^', include(router.urls)),
 
-    re_path(r'^', include(router.urls)),  # 添加router统一注册
     # api文档地址
     re_path(r'docs/', include_docs_urls(title='py接口文档')),
 ]
