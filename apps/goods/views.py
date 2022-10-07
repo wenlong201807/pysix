@@ -5,6 +5,7 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 
+from rest_framework import viewsets
 from .models import Goods
 
 
@@ -15,8 +16,7 @@ class GoodsPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class GoodsListView(generics.ListAPIView):
-    # class GoodsListView(mixins.ListModelMixin, generics.GenericAPIView):
+class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     商品列表页
     """
@@ -24,5 +24,5 @@ class GoodsListView(generics.ListAPIView):
     serializer_class = GoodsSerializer
     pagination_class = GoodsPagination  # 自定义分页参数
 
-    # def get(self, request, *args, **kwargs):
-    #     return self.list(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)

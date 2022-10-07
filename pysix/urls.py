@@ -23,9 +23,19 @@ import xadmin
 from pysix.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
+from goods.views import GoodsListViewSet
 
-from goods.views import GoodsListView
-# from goods.views_base import GoodsListView
+# 初级版
+# goods_list = GoodsListViewSet.as_view({
+#     'get': 'list',  # get请求绑定到list上
+# })
+
+# 高级版
+router = DefaultRouter()
+
+#  配置goods的url
+router.register(r'goods', GoodsListViewSet)
 
 urlpatterns = [
     # re_path('xadmin/', xadmin.site.urls),
@@ -37,8 +47,9 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
     # 测试访问 http://127.0.0.1:8000/goods/
-    re_path(r'goods/$', GoodsListView.as_view(), name="goods-list"),
+    # re_path(r'goods/$', goods_list, name="goods-list"), # 初级版
 
+    re_path(r'^', include(router.urls)),  # 添加router统一注册
     # api文档地址
     re_path(r'docs/', include_docs_urls(title='py接口文档')),
 ]
