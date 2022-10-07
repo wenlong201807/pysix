@@ -6,7 +6,26 @@ from rest_framework import serializers
 from goods.models import Goods, GoodsCategory
 
 
-class CaTest(serializers.ModelSerializer):
+class CategorySerializer3(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsCategory
+        fields = "__all__"
+
+
+class CategorySerializer2(serializers.ModelSerializer):
+    sub_cat = CategorySerializer3(many=True)
+
+    class Meta:
+        model = GoodsCategory
+        fields = "__all__"
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    """
+    商品类别序列化
+    """
+    sub_cat = CategorySerializer2(many=True)  # 此字段与约定的数据表中的需 一致 可能有多个
+
     class Meta:
         model = GoodsCategory
         fields = "__all__"
@@ -14,9 +33,8 @@ class CaTest(serializers.ModelSerializer):
 
 # 高级版
 class GoodsSerializer(serializers.ModelSerializer):
-    category = CaTest()  # 覆盖外健对应的字段表
+    category = CategorySerializer()  # 覆盖外健对应的字段表
 
-    # category = CategorySerializer()  # 覆盖外健对应的字段表
     # images = GoodsImageSerializer(many=True)
     class Meta:
         model = Goods

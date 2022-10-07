@@ -1,14 +1,17 @@
-from .serializers import GoodsSerializer
-
 from rest_framework import mixins
 from rest_framework import viewsets
+from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend  # 未生效
+# from django_filters import rest_framework as filter
 
-from .models import Goods
+from .models import Goods, GoodsCategory
+from .filters import GoodsFilter  # 未生效
+from .serializers import GoodsSerializer, CategorySerializer
 
 
 class GoodsPagination(PageNumberPagination):
-    page_size = 10
+    page_size = 3
     page_size_query_param = 'page_size'
     page_query_param = "pagey"
     max_page_size = 100
@@ -16,17 +19,27 @@ class GoodsPagination(PageNumberPagination):
 
 class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    商品列表页
+    商品列表页: 分页，搜索，过滤，排序
     """
-    # queryset = Goods.objects.all()
+    queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     pagination_class = GoodsPagination  # 自定义分页参数
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    # filterer_fields = GoodsFilter # filters.py 未生效
+    # docs https://www.django-rest-framework.org/api-guide/filtering/#setting-filter-backends
+    filterset_fields = ['shop_price', 'market_price']  # 精确搜索
+    search_fields = ('name', 'goods_brief', 'goods_desc')  # 同一个搜索内容，可查询三个字段中的内容
+    ordering_fields = ['market_price', 'shop_price', 'add_time']
 
-    #  处理前端传递的参数
-    def get_queryset(self):
-        queryset = Goods.objects.all()
-        # 初级版过滤查询: 查询前端传过来的参数字段price_min 值大于指定数值int(price_min) 的的数据列表
-        price_min = self.request.query_params.get('price_min', 0)
-        if price_min:
-            queryset = queryset.filter(shop_price__gt=int(price_min))
-        return queryset
+
+class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    """
+    list
+        商品分类列表数据
+        可以进入其对应的详情页 mixins.RetrieveModelMixin
+        测试入口 http://127.0.0.1:8000/categorys/24/ [第一层的id]
+    """
+    # queryset = GoodsCategory.objects.all()  # 获取数据库表中的所有数据
+    queryset = GoodsCategory.objects.filter(category_type=1)  # 添加查询条件 category_type 字段值为 1 的数据
+
+    serializer_class = CategorySerializer

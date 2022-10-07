@@ -24,7 +24,7 @@ from pysix.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
-from goods.views import GoodsListViewSet
+from goods.views import GoodsListViewSet, CategoryViewSet
 
 # 高级版
 router = DefaultRouter()
@@ -33,6 +33,7 @@ router = DefaultRouter()
 
 # 测试访问 http://127.0.0.1:8000/goods/
 router.register(r'goods', GoodsListViewSet, basename='goods')  # 后续只需要添加一行这个路由即可
+router.register(r'categorys', CategoryViewSet, basename='categorys')
 
 urlpatterns = [
     # re_path('xadmin/', xadmin.site.urls),

@@ -53,11 +53,11 @@ INSTALLED_APPS = [
 
     # xadmin discord
     # 'crispy_forms',
-    # 'django_filters',
     # 'xadmin',
 
 
-    'rest_framework',  # 接口文档相关
+    'rest_framework',
+    'django_filters',
     # 'corsheaders',
     # 'rest_framework.authtoken'
 ]
@@ -155,6 +155,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # 未生效
 # REST_FRAMEWORK = {
 #     'PAGE_SIZE': 10,
+# }
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': (
+#         'django_filters.rest_framework.DjangoFilterBackend',
+#     ),
 # }
 
 # Default primary key field type

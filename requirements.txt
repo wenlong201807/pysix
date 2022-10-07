@@ -63,3 +63,4 @@ XlsxWriter~=3.0.3
 future~=0.18.2
 httplib2~=0.20.4
 six~=1.16.0
+django-filter~=22.1
