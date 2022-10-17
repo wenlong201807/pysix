@@ -11,7 +11,7 @@ from .serializers import GoodsSerializer, CategorySerializer
 
 
 class GoodsPagination(PageNumberPagination):
-    page_size = 3
+    page_size = 12
     page_size_query_param = 'page_size'
     page_query_param = "pagey"
     max_page_size = 100
@@ -29,7 +29,7 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     # docs https://www.django-rest-framework.org/api-guide/filtering/#setting-filter-backends
     filterset_fields = ['shop_price', 'market_price']  # 精确搜索
     search_fields = ('name', 'goods_brief', 'goods_desc')  # 同一个搜索内容，可查询三个字段中的内容
-    ordering_fields = ['market_price', 'shop_price', 'add_time']
+    ordering_fields = ['sold_num', 'shop_price']
 
 
 class CategoryViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
