@@ -26,6 +26,8 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from goods.views import GoodsListViewSet, CategoryViewSet
 
+from rest_framework.authtoken import views
+
 # 高级版
 router = DefaultRouter()
 
@@ -49,4 +51,7 @@ urlpatterns = [
 
     # api文档地址
     re_path(r'docs/', include_docs_urls(title='py接口文档')),
+
+    # 生成token的接口
+    re_path('api-token-auth/', views.obtain_auth_token)
 ]
