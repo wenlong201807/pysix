@@ -9,6 +9,8 @@ from .models import Goods, GoodsCategory
 from .filters import GoodsFilter  # 未生效
 from .serializers import GoodsSerializer, CategorySerializer
 
+from rest_framework.authentication import TokenAuthentication
+
 
 class GoodsPagination(PageNumberPagination):
     page_size = 12
@@ -24,6 +26,7 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Goods.objects.all()
     serializer_class = GoodsSerializer
     pagination_class = GoodsPagination  # 自定义分页参数
+    authentication_classes = (TokenAuthentication,)  # 局部配置token
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     # filterer_fields = GoodsFilter # filters.py 未生效
     # docs https://www.django-rest-framework.org/api-guide/filtering/#setting-filter-backends

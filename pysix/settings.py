@@ -158,7 +158,8 @@ REST_FRAMEWORK = {  # 验证用户登陆的
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',  # 新增
+        # 'rest_framework.authentication.TokenAuthentication',  # 新增
+        # 全局配置token有弊端
     ]
 }
 
