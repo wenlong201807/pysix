@@ -30,7 +30,7 @@ class GoodsListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     # filterer_fields = GoodsFilter # filters.py 未生效
     # docs https://www.django-rest-framework.org/api-guide/filtering/#setting-filter-backends
-    filterset_fields = ['shop_price', 'market_price']  # 精确搜索
+    filterset_fields = ['shop_price', 'market_pri ce']  # 精确搜索
     search_fields = ('name', 'goods_brief', 'goods_desc')  # 同一个搜索内容，可查询三个字段中的内容
     ordering_fields = ['sold_num', 'shop_price']
 

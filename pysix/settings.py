@@ -39,6 +39,7 @@ AUTH_USER_MODEL = 'users.UserProfile'
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -55,10 +56,11 @@ INSTALLED_APPS = [
     # 'crispy_forms',
     # 'xadmin',
 
-    'rest_framework',
+    'rest_framework',  # 注册DRF应用
     'django_filters',
     'corsheaders',
-    'rest_framework.authtoken',  # 生成用户表
+    # 'rest_framework.authtoken',  # 生成用户表
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -78,7 +80,7 @@ ROOT_URLCONF = 'pysix.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR , 'templates'],
+        'DIRS': [BASE_DIR, 'templates'],
         # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
 
         'APP_DIRS': True,
@@ -155,17 +157,34 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {  # 验证用户登陆的
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    #     'rest_framework.authentication.BasicAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     # 'rest_framework.authentication.TokenAuthentication',  # 新增
+    #     # 全局配置token有弊端
+    # ]
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication',  # 新增
-        # 全局配置token有弊端
-    ]
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # 使用rest_framework_simplejwt验证身份
+    ),
+'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'    # 默认权限为验证用户
+    ],
 }
 
+# simplejwt配置， 需要导入datetime模块
+# from datetime import datetime
+# SIMPLE_JWT = {
+# token有效时长
+# 'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=30),
+# token刷新后的有效时间
+# 'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+# }
+# 原文链接：https://blog.csdn.net/yueguangMaNong/article/details/116797640
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

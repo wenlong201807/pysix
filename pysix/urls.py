@@ -25,8 +25,28 @@ from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from goods.views import GoodsListViewSet, CategoryViewSet
-
+# from users.views import UserViewSet
 from rest_framework.authtoken import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
+
+# 创建一个自定义的视图，仅实现get方法做测试
+from rest_framework.views import APIView, Response
+
+
+class IndexView(APIView):
+    def get(self, request):
+        """
+
+        :type request: object
+        """
+        return Response(
+            {"data": '88'}
+        , status=200)
+
 
 # 高级版
 router = DefaultRouter()
@@ -52,6 +72,15 @@ urlpatterns = [
     # api文档地址
     re_path(r'docs/', include_docs_urls(title='py接口文档')),
 
-    # 生成token的接口
-    re_path('api-token-auth/', views.obtain_auth_token)
+    # 生成token的接口 drf自带的token认证模式
+    # re_path('api-token-auth/', views.obtain_auth_token),
+
+    # jwt的认证模式
+    # re_path(r'login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    re_path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    re_path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    re_path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+    # 自定义视图
+    re_path('index/', IndexView.as_view(), name='index')
+
 ]
