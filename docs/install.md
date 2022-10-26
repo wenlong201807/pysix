@@ -29,6 +29,24 @@ my-mac mysql5.7 第一次启动过程
   选择字符集 utf8 -- utf8-8 unicode
   排序规则 utf8_general_ci
 
+## 美多商城
+  
+  ### 数据库导入
+  进入到指定文件夹下
+  执行 mysql -uroot -p meiduo < dump.sql 
+  输入mysql 密码  回车，成功则推出命令行
+
+  此数据库中用户名密码是[users_user表]  admin  admin123
+  其他用户的密码是  8个1
+
+  ### 添加虚拟环境
+  pycharm -> perfermance -> 
+
+  ### 安装依赖
+  pip install -r re
+
+
+
   数据库问题一
   1. 支持中文内容输入
 
